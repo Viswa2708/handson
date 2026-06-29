@@ -68,4 +68,16 @@ public class EmployeeManagementSystem {
         }
         return false;
     }
+     public static void main(String[] args) {
+        EmployeeManagementSystem system = new EmployeeManagementSystem(10);
+        system.addEmployee(new Employee(1, "John Doe", "Manager", 75000));
+        system.addEmployee(new Employee(2, "Jane Smith", "Developer", 65000));
  
+        System.out.println("Search result: " + system.searchEmployee(2));
+ 
+        system.deleteEmployee(1);
+        System.out.println("After deletion:");
+        system.traverse();
+    }
+}
+
