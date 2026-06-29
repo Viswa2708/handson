@@ -1,0 +1,83 @@
+class Task {
+    int taskId;
+    String taskName;
+    String status;
+    Task next;
+ 
+    public Task(int taskId, String taskName, String status) {
+        this.taskId = taskId;
+        this.taskName = taskName;
+        this.status = status;
+        this.next = null;
+    }
+ 
+    @Override
+    public String toString() {
+        return "Task{id=" + taskId + ", name=" + taskName + ", status=" + status + "}";
+    }
+}
+ 
+public class TaskManagementSystem {
+    private Task head;
+ 
+    // Add -
+    public void addTask(int taskId, String taskName, String status) {
+        Task newTask = new Task(taskId, taskName, status);
+        newTask.next = head;
+        head = newTask;
+    }
+ 
+    // Search 
+    public Task searchTask(int taskId) {
+        Task current = head;
+        while (current != null) {
+            if (current.taskId == taskId) {
+                return current;
+            }
+            current = current.next;
+        }
+        return null;
+    }
+ 
+    // Traverse 
+    public void traverse() {
+        Task current = head;
+        while (current != null) {
+            System.out.println(current);
+            current = current.next;
+        }
+    }
+ 
+    // Delete 
+    public boolean deleteTask(int taskId) {
+        if (head == null) return false;
+        if (head.taskId == taskId) {
+            head = head.next;
+            return true;
+        }
+        Task prev = head;
+        Task current = head.next;
+        while (current != null) {
+            if (current.taskId == taskId) {
+                prev.next = current.next;
+                return true;
+            }
+            prev = current;
+            current = current.next;
+        }
+        return false;
+    }
+ 
+    public static void main(String[] args) {
+        TaskManagementSystem system = new TaskManagementSystem();
+        system.addTask(1, "Design UI", "Pending");
+        system.addTask(2, "Write Tests", "In Progress");
+        system.addTask(3, "Deploy App", "Pending");
+ 
+        System.out.println("Search result: " + system.searchTask(2));
+ 
+        system.deleteTask(1);
+        System.out.println("After deletion:");
+        system.traverse();
+    }
+}
